@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   web:
-    build: ./web/
-    working_dir: /usr/src/app/web/
+    build: ./backend/
+    working_dir: /usr/src/app/backend/
     command: flask run -h 0.0.0.0
     volumes:
-      - ./web/:/usr/src/app/web/
+      - ./backend/:/usr/src/app/backend/
     ports:
       - 5000:5000
     env_file:
-      - .env.dev
+      - backend/.env.dev
     depends_on:
       - db
   db:
@@ -20,14 +20,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=studshop
-  fronend:
-    depends_on:
-      - web
-    build:
-      context: frontend/
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
+      - POSTGRES_DB=table
 volumes:
   postgres_data:
