@@ -13,16 +13,6 @@ def create_app():
 
     app.register_blueprint(items_page, url_prefix='/api/items/')
 
-    # @app.cli.command()
-    # def recreate_db():
-    #     # db.drop_all()
-    #     # db.create_all()
-    #     pass
-    #
-    # @app.cli.command()
-    # def create_data():
-    #     pass
-
     with app.app_context():
         db.create_all()  # Create sql tables for our data models
 
