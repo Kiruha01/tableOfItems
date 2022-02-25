@@ -1,5 +1,5 @@
 from flask import Flask
-from models import db
+from models import db, Item
 
 import config
 
@@ -22,7 +22,7 @@ def create_app():
     # def create_data():
     #     pass
 
-    # with app.app_context():
-    #     db.create_all()  # Create sql tables for our data models
+    with app.app_context():
+        db.create_all()  # Create sql tables for our data models
 
     return app
