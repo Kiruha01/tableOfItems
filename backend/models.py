@@ -4,6 +4,11 @@ from flask_restful import fields
 db = SQLAlchemy()
 
 
+class DateFormat(fields.Raw):
+    def format(self, value):
+        return value.strftime('%Y-%m-%d')
+
+
 class Item(db.Model):
     __tablename__ = 'table'
     item_id = db.Column(db.Integer, primary_key=True)
@@ -15,7 +20,7 @@ class Item(db.Model):
 
 item_fields = {
     'item_id': fields.Integer,
-    'date': fields.DateTime,
+    'date': DateFormat,
     'name': fields.String,
     'count': fields.Integer,
     'distance': fields.Float
