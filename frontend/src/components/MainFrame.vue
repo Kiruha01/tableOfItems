@@ -1,8 +1,21 @@
 <template>
   <div>
-    <p>{{totalPages}}</p>
-  <Table :items="items"/>
-    <Pagination :current-page="currentPage" :total-pages="totalPages" :update-data="updateData"/>
+    <div class="row">
+      <div class="col-4">
+        <h2>Сортировка {{sortingField}}</h2>
+        <SortingComponent :sort-fields="config.SORTING_FIELDS" @change="sortItems"/>
+      </div>
+      <div class="col-8">
+        <h2>Фильтрация {{filterParams}}</h2>
+        <FilteringComponent :filter-fields="config.FILTERING_FIELDS" :filter-types="config.FILTERING_TYPES"
+                            :set-filter-params="setFilterParams" @change_1="filterItems"/>
+
+      </div>
+    </div>
+
+    <Table :items="items"/>
+    <Pagination :total-pages="totalPages" :set-page="setPage" :current-page="currentPage"
+                @change="changePage"/>
   </div>
 </template>
 
@@ -10,41 +23,66 @@
 import Table from "@/components/Table/Table";
 import axios from 'axios';
 import Pagination from "@/components/Table/Pagination";
+import SortingComponent from "@/components/SortingComponent";
+
+import Config from '@/config'
+import FilteringComponent from "@/components/FilteringComponent";
 export default {
   name: 'MainFrame',
-  components: {Pagination, Table},
-  props: {
-    msg: String
-  },
+  components: {FilteringComponent, SortingComponent, Pagination, Table},
   data(){
     return {
+      config: Config,
       totalPages: null,
       currentPage: 1,
-      items: []
+      newPage: 1,
+      items: [],
+
+      sortingField: null,
+
+      filterParams: {filter_field: null, filter_type: null, filter_value: null}
     }
   },
 
   mounted() {
-    axios.get('/api/items/').then(
-        response => {
-          this.totalPages = response.data['total_pages']
-          this.items = response.data['items']
-        }
-    )
+    this.updateData(1)
   },
 
   methods: {
-    updateData(page){
+    updateData(page = this.currentPage, sorting = this.sortingField, filterParams = this.filterParams){
       axios.get('/api/items/', {
-        params: {page: page}
+        params: {
+          page: page,
+          sorting: sorting,
+          filter_field: filterParams.filter_field,
+          filter_type: filterParams.filter_type,
+          filter_value: filterParams.filter_value
+        }
       }).then(
           response => {
             this.totalPages = response.data['total_pages']
             this.items = response.data['items']
-            this.currentPage = page
           }
       )
+    },
+
+    sortItems(e){
+      this.sortingField = e
+      this.currentPage = 1
+      this.updateData(1, e, this.filterParams)
+    },
+
+    filterItems(e){
+      this.filterParams = e
+      this.currentPage = 1
+      this.updateData(1, this.sortingField, e)
+    },
+
+    changePage(e){
+      this.currentPage = e
+      this.updateData(e, this.sortingField, this.filterParams)
     }
-  }
+  },
+
 }
 </script>

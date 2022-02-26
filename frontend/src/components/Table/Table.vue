@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-      <Row v-for="i in items" :key="i['item_id']" :data=i></Row>
+      <Row v-for="item in items" :key="item.item_id" :data="item"></Row>
     </tbody>
   </table>
 </template>
