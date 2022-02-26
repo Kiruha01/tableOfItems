@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, current_app
 from flask_restful import Api, Resource, marshal, reqparse, abort
 from sqlalchemy.exc import DataError
 
@@ -41,6 +41,8 @@ class ItemsView(Resource):
         parser.add_argument('filter_field', choices=('name', 'date', 'count', 'distance'))
         parser.add_argument('filter_type', choices=('eq', 'in', 'lt', 'gt'))
         parser.add_argument('filter_value', type=str)
+        parser.add_argument('page', type=int, default=1)
+
         args = parser.parse_args()
 
         query = Item.query
@@ -51,10 +53,12 @@ class ItemsView(Resource):
         query = filter_query(Item, query, args['filter_field'], args['filter_type'], args['filter_value'])
 
         try:
-            return marshal(query.all(), item_fields)
+            pagination = query.paginate(args['page'], current_app.config['ITEMS_PER_PAGE'])
         except DataError as e:
             print(e.params)
             abort(400, messgae={"filter_value": "Invalid format"})
+        else:
+            return {"total_pages": pagination.pages, "items": marshal(pagination.items, item_fields)}
 
 
 api.add_resource(ItemsView, '/')
