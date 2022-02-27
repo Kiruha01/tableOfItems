@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Row",
+  name: "RowComponent",
   props: ['data'],
 }
 </script>

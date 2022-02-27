@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import Table from "@/components/Table/Table";
+import Table from "@/components/Table/TableComponent";
 import axios from 'axios';
-import Pagination from "@/components/Table/Pagination";
+import Pagination from "@/components/Table/PaginationComponent";
 import SortingComponent from "@/components/SortingComponent";
 
 import Config from '@/config'

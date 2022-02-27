@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-center mt-5">Table for that</h1>
+        <h1 class="text-center my-5">Таблица</h1>
     <div class="container">
       <MainFrame/>
     </div>

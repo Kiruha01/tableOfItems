@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Row from "@/components/Table/Row";
+import Row from "@/components/Table/RowComponent";
 export default {
-  name: "Table",
+  name: "TableComponent",
   components: {Row},
   props: ['items']
 }
