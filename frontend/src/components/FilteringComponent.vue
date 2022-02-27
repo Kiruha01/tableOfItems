@@ -1,19 +1,19 @@
 <template>
-  <div class="d-flex">
-    <select v-model="filterParams.filter_field" class="form-select mx-1">
+  <form class="d-flex" @submit.prevent="doFiltration">
+    <select v-model="filterParams.filter_field" class="form-select mx-1" required>
       <option selected disabled>Фильтрация по</option>
       <option v-for="field in filterFields" :value="field.name" :key="field.name">{{field.title}}</option>
     </select>
 
-    <select v-model="filterParams.filter_type" class="form-select mx-1">
+    <select v-model="filterParams.filter_type" class="form-select mx-1" required>
       <option selected disabled>Условие</option>
       <option v-for="field in filterTypes" :value="field.name" :key="field.name">{{field.title}}</option>
     </select>
 
-    <input v-model="filterParams.filter_value" type="text" class="form-control mx-1" placeholder="Значение">
+    <input v-model="filterParams.filter_value" type="text" class="form-control mx-1" placeholder="Значение" required>
 
-    <button class="btn btn-primary mx-1" @click.stop="doFiltration">Done</button>
-  </div>
+    <button class="btn btn-primary mx-1">Done</button>
+  </form>
 </template>
 
 <script>
@@ -34,7 +34,6 @@ export default {
   methods: {
     doFiltration() {
       this.$emit("change_1", Object.assign({}, this.filterParams))
-      // this.setFilterParams(this.filterParams)
     }
   }
 }

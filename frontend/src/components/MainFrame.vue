@@ -2,19 +2,19 @@
   <div>
     <div class="row">
       <div class="col-4">
-        <h2>Сортировка {{sortingField}}</h2>
+        <h2>Сортировка</h2>
         <SortingComponent :sort-fields="config.SORTING_FIELDS" @change="sortItems"/>
       </div>
       <div class="col-8">
-        <h2>Фильтрация {{filterParams}}</h2>
+        <h2>Фильтрация</h2>
         <FilteringComponent :filter-fields="config.FILTERING_FIELDS" :filter-types="config.FILTERING_TYPES"
-                            :set-filter-params="setFilterParams" @change_1="filterItems"/>
+                            @change_1="filterItems"/>
 
       </div>
     </div>
 
     <Table :items="items"/>
-    <Pagination :total-pages="totalPages" :set-page="setPage" :current-page="currentPage"
+    <Pagination :total-pages="totalPages" :current-page="currentPage"
                 @change="changePage"/>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
   },
 
   methods: {
-    updateData(page = this.currentPage, sorting = this.sortingField, filterParams = this.filterParams){
+    updateData(page = this.currentPage, sorting = this.sortingField, filterParams = this.filterParams) {
       axios.get('/api/items/', {
         params: {
           page: page,
@@ -63,7 +63,17 @@ export default {
             this.totalPages = response.data['total_pages']
             this.items = response.data['items']
           }
-      )
+      ).catch((error) => {
+        let s = ""
+        for (let key in error.response.data.message) {
+          s += key + ': ' + error.response.data.message[key]
+        }
+        for (let key in this.filterParams){
+          this.filterParams[key] = null
+        }
+          alert(s)
+
+      })
     },
 
     sortItems(e){
