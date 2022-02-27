@@ -11,6 +11,7 @@ services:
       - backend/.env
     depends_on:
       - db
+    restart: unless-stopped
   db:
     image: postgres:13-alpine
     volumes:
