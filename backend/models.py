@@ -11,6 +11,10 @@ class DateFormat(fields.Raw):
 
 class Item(db.Model):
     __tablename__ = 'table'
+    __table_args__ = (
+        db.CheckConstraint('count > 0'),
+        db.CheckConstraint('distance > 0'),
+    )
     item_id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
     name = db.Column(db.String(100), nullable=False)
