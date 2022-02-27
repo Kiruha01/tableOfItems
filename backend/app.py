@@ -13,6 +13,13 @@ def create_app():
 
     app.register_blueprint(items_page, url_prefix='/api/items/')
 
+    @app.cli.command('fill-db')
+    def fill_db():
+        from sqlalchemy.sql import text
+        file = open("data.sql")
+        query = text(file.read())
+        db.engine.execute(query)
+
     with app.app_context():
         db.create_all()  # Create sql tables for our data models
 

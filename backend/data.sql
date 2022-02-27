@@ -1,0 +1,15 @@
+INSERT INTO "table" (name, count, distance, date) VALUES ('Tree', 12, 4256, '1998-03-24');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Four', 1, 6355.01, '2001-12-08');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Five', 135, 0.02, '2054-05-11');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Multitask', 6, 865, '2006-03-16');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Global', 1, 15.35, '2010-08-31');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Fool', 23, 16.01, '1985-08-12');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Basket', 117, 14.99, '2016-06-30');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Bazar', 6, 14.56, '2001-11-07');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Generic', 13, 15.02, '2003-04-04');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Fedora', 48, 100, '2008-04-27');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Volf', 4, 132, '2007-06-30');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Scala', 999, 130, '2010-10-19');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Animation', 432, 17.5, '2020-01-19');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Tree', 56, 36.6, '2019-05-18');
+INSERT INTO "table" (name, count, distance, date) VALUES ('Frodo', 3, 37.0, '2020-03-19');

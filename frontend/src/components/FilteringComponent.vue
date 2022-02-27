@@ -12,7 +12,8 @@
 
     <input v-model="filterParams.filter_value" type="text" class="form-control mx-1" placeholder="Значение" required>
 
-    <button class="btn btn-primary mx-1">Done</button>
+    <button type="submit" class="btn btn-primary mx-1">Done</button>
+    <button @click="clear" class="btn btn-light mx-1">Clear</button>
   </form>
 </template>
 
@@ -34,6 +35,13 @@ export default {
   methods: {
     doFiltration() {
       this.$emit("change_1", Object.assign({}, this.filterParams))
+    },
+
+    clear(){
+      for (let key in this.filterParams){
+        this.filterParams[key] = null
+      }
+      this.doFiltration()
     }
   }
 }

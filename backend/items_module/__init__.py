@@ -24,7 +24,7 @@ def filter_query(Model, query, field: str, type: str, value: str):
         return query.filter(getattr(Model, field) == value)
     elif type == 'in':
         if field == 'name':
-            return query.filter(getattr(Model, field).like(value))
+            return query.filter(getattr(Model, field).ilike("%{}%".format(value)))
         else:
             abort(400, message={'field_type': "type 'in' support only 'name' field"})
     elif type == 'lt':
