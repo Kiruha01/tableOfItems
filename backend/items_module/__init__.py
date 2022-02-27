@@ -55,7 +55,6 @@ class ItemsView(Resource):
         try:
             pagination = query.paginate(args['page'], current_app.config['ITEMS_PER_PAGE'])
         except DataError as e:
-            print(e.params)
             abort(400, message={"filter_value": "Invalid format"})
         else:
             return {"total_pages": pagination.pages, "items": marshal(pagination.items, item_fields)}
