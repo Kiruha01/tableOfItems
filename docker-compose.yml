@@ -28,3 +28,4 @@ services:
       - 8002:80
 volumes:
   postgres_data:
+
